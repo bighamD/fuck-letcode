@@ -1,0 +1,29 @@
+<script>
+    /**
+ * @param {string} s
+ * @return {number}
+ */
+    var lengthOfLongestSubstring = function (s) {
+        if (s.length === 0) return 0;
+        let set = new Set();
+        let res = -Infinity;
+        let left = 0;
+        let right = 0;
+        while (right < s.length) {
+            let e = s[right++];
+            if (!set.has(e)) {
+                set.add(e)
+            } else {
+                while (set.has(e)) {
+                    set.delete(s[left++])
+                }
+                set.add(e);
+            }
+            res = Math.max(res, set.size);
+        }
+        return res
+    };
+
+    var s = 'abcabcbb';
+    // 输出3
+</script>

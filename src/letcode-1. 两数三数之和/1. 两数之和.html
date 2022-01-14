@@ -1,0 +1,78 @@
+<script>
+    /**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ * 输入：nums = [2,7,11,15], target = 9
+输出：[0,1]
+解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/two-sum
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ */
+    var twoSum = function (nums, target) {
+        const map = new Map();
+
+        for (var i = 0; i < nums.length; i++) {
+            let t = target - nums[i];
+
+            if (map.has(t)) {
+                return [t, nums[i]]
+            }
+            map.set(nums[i], i);
+        }
+    };
+    console.log(twoSum([2, 7, 11, 15], 9));
+
+    var threeSum = function (nums) {
+        if (nums.length < 3) return [];
+        nums.sort(function (a, b) { return a - b})
+        let ret = []
+        var map = new Map();
+        for (var i = 0; i < nums.length; i++) {
+            if(i > 0 && nums[i] == nums[i-1]) continue; 
+            let t = nums[i];
+            if (twoSum(nums, -t)) {
+                const m = [t, ...twoSum(nums, -t)].sort((a, b) => a - b)
+                ret.push(m)
+            }
+            map.set(nums[i], i);
+        }
+        const ret1 =  [...new Set(ret.map(v => v.join()))].map(v => v.split(','));
+        console.log(ret1);
+        return ret1;
+    };
+    /**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var threeSum1 = function(nums) {
+    let ans = [];
+    const len = nums.length;
+    if(nums == null || len < 3) return ans;
+    nums.sort((a, b) => a - b); // 排序
+    for (let i = 0; i < len ; i++) {
+        if(nums[i] > 0) break; // 如果当前数字大于0，则三数之和一定大于0，所以结束循环
+        if(i > 0 && nums[i] == nums[i-1]) continue; // 去重
+        let L = i+1;
+        let R = len-1;
+        while(L < R){
+            const sum = nums[i] + nums[L] + nums[R];
+            if(sum == 0){
+                ans.push([nums[i],nums[L],nums[R]]);
+                while (L<R && nums[L] == nums[L+1]) L++; // 去重
+                while (L<R && nums[R] == nums[R-1]) R--; // 去重
+                L++;
+                R--;
+            }
+            else if (sum < 0) L++;
+            else if (sum > 0) R--;
+        }
+    }        
+    return ans;
+};
+
+
+    console.log(threeSum([-1, 0, 1, 2, -1, -4]));
+</script>

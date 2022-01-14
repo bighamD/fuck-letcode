@@ -1,0 +1,70 @@
+<script>
+    /**
+     * 输入：grid = [
+      ["1","1","1","1","0"],
+      ["1","1","0","1","0"],
+      ["1","1","0","0","0"],
+      ["0","0","0","0","0"]
+    ]
+    输出：1
+    示例 2：
+    
+    输入：grid = [
+      ["1","1","0","0","0"],
+      ["1","1","0","0","0"],
+      ["0","0","1","0","0"],
+      ["0","0","0","1","1"]
+    ]
+    输出：3
+    
+    来源：力扣（LeetCode）
+    链接：https://leetcode-cn.com/problems/number-of-islands
+    著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+     * */
+    /**
+     * @param {character[][]} grid
+     * @return {number}
+     */
+    var numIslands = function (grid) {
+        let x = grid[0].length;
+        let y = grid.length;
+        let g = 0;
+        for (var i = 0; i < y; i++) {
+            for (var j = 0; j < x; j++) {
+                if (grid[i][j] === '1') {
+                    g++;
+                    dfs(grid, i, j)
+                }
+            }
+        }
+        return g;
+    };
+
+    function dfs(grid, i, j) {
+        let x = grid[0].length;
+        let y = grid.length;
+
+        if (i < 0 || j < 0 || i >= y || j >= x) {
+            return
+        }
+
+        if (grid[i][j] === '0') {
+            return
+        }
+        // 递归把相连的1全部淹没成海水，因为只要是相连都是视为一个海岛
+        grid[i][j] = '0';
+        dfs(grid, i + 1, j)
+        dfs(grid, i - 1, j);
+        dfs(grid, i, j - 1);
+        dfs(grid, i, j + 1)
+    }
+    
+    var grid = [
+        ["1", "1", "0", "0", "0"],
+        ["1", "1", "0", "0", "0"],
+        ["0", "0", "1", "1", "0"],
+        ["0", "0", "0", "1", "1"]
+    ]
+
+    console.log(numIslands(grid));
+</script>

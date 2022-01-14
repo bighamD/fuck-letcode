@@ -1,0 +1,24 @@
+<script>
+    var arr = [3, 2, 3, 1, 2, 4, 5, 5, 6, 7, 7, 8, 2, 3, 1, 1, 1, 10, 11, 5, 6, 2, 4, 7, 8, 5, 6]
+
+    function quickSort(arr) {
+        if (arr.length <= 1) return arr;
+
+        let idx = Math.floor((arr.length - 1) / 2);
+        let right = [];
+        let left = [];
+        let mid = []
+        const t = arr[idx];
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] > t) {
+                right.push(arr[i]);
+            } else if (arr[i] < t) {
+                left.push(arr[i])
+            } else {
+                mid.push(arr[i])
+            }
+        }
+        return [...quickSort(left), ...mid, ...quickSort(right)];
+    }
+    console.log(quickSort(arr));
+</script>

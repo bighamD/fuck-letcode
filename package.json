@@ -1,0 +1,10 @@
+{
+  "name": "letcode",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "debug": "node ./src/letcode-76.js"
+  },
+  "type": "module"
+}
